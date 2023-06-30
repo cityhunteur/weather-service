@@ -1,0 +1,12 @@
+services:
+  service:
+    build:
+      context: .
+      args:
+        SERVICE: weather-service
+    ports:
+      - "8080:8080"
+    networks:
+      - skynet
+networks:
+  skynet:
