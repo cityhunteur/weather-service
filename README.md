@@ -42,4 +42,5 @@ curl --request GET \
 - [ ] Add configurable defaults, e.g. env vars
 - [ ] Refactor main handler to perform tasks concurrently if needed
 - [ ] Improve accuracy of place search, e.g. using structured query
+- [ ] Invalidate cache, evict expired entries and limit cache size
 
