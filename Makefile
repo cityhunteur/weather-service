@@ -5,7 +5,8 @@ build:
 
 .PHONY: lint
 lint:
-	golangci-lint run
+	@go install github.com/golangci/golangci-lint/cmd/golangci-lint
+	@golangci-lint run
 
 .PHONY: test
 test:
