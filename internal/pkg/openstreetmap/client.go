@@ -88,6 +88,7 @@ func (c *Client) doRequest(ctx context.Context, req *http.Request, v interface{}
 		}
 		return fmt.Errorf("sending http request: %w", err)
 	}
+	defer func() { _ = resp.Body.Close() }()
 
 	if err := checkResponse(resp); err != nil {
 		return fmt.Errorf("http error response: %w", err)

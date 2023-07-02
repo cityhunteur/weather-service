@@ -74,7 +74,7 @@ func (h *GetForecastHandler) GetForecast(c *gin.Context) {
 
 	cities := strings.Split(citiesStr, ",")
 
-	var forecasts []*v1.Forecast
+	forecasts := make([]*v1.Forecast, 0)
 	for _, city := range cities {
 		h.logger.Debugw("Getting forecast for city", "city", city)
 

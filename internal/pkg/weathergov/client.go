@@ -96,6 +96,7 @@ func (c *Client) doRequest(ctx context.Context, req *http.Request, v interface{}
 		}
 		return fmt.Errorf("sending http request: %w", err)
 	}
+	defer func() { _ = resp.Body.Close() }()
 
 	err = json.NewDecoder(resp.Body).Decode(v)
 	if err != nil {

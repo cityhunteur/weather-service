@@ -1,6 +1,7 @@
 package handler_test
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -22,6 +23,7 @@ import (
 )
 
 func TestGetForecastHandler_GetForecast(t *testing.T) {
+	t.Parallel()
 	now := time.Now().UTC()
 	oneDayLater := now.AddDate(0, 0, 1)
 	tests := []struct {
@@ -131,7 +133,9 @@ func TestGetForecastHandler_GetForecast(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			logger := zaptest.NewLogger(t).Sugar()
 			mockOpenStreetMapAPI := mocks.NewOpenStreetMapAPI(t)
 			tt.openStreetMapAPIExpectations(mockOpenStreetMapAPI)
@@ -142,7 +146,7 @@ func TestGetForecastHandler_GetForecast(t *testing.T) {
 			resp := httptest.NewRecorder()
 			_, router := gin.CreateTestContext(resp)
 			router.GET("/v1/weather", h.GetForecast)
-			req, _ := http.NewRequest("GET", fmt.Sprintf("/v1/weather%s", tt.query), nil)
+			req, _ := http.NewRequestWithContext(context.Background(), "GET", fmt.Sprintf("/v1/weather%s", tt.query), nil)
 			router.ServeHTTP(resp, req)
 
 			if tt.wantStatusCode != 200 {
