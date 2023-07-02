@@ -1,15 +1,4 @@
 run:
-  # default: '1m'
-  timeout: '5m'
-
-  # default: []
-  build-tags:
-  - 'all'
-
-  # default: []
-  skip-dirs:
-  - 'internal/pb'
-
   # default: true
   skip-dirs-use-default: false
 
